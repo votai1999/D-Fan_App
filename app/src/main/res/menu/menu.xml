@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/connect"
+            android:title="Connect"
+            android:icon="@drawable/ic_baseline_cast_connected_24"
+            app:cnb_iconColor="#ffffff"
+            app:cnb_textColor="#ffffff"
+            app:cnb_backgroundColor = "#4E4D50"/>
+        <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_baseline_menu_24"
-            android:title="Home" />
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home"
+            app:cnb_iconColor="#ffffff"
+            app:cnb_textColor="#ffffff"
+            app:cnb_backgroundColor = "#4E4D50"/>
         <item
             android:id="@+id/setting"
-            android:title="Setting" />
+            android:title="Setting"
+            android:icon="@drawable/ic_baseline_settings_24"
+            app:cnb_iconColor="#ffffff"
+            app:cnb_textColor="#ffffff"
+            app:cnb_backgroundColor = "#4E4D50"/>
     </group>
 </menu>

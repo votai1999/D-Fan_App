@@ -38,7 +38,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardviewFile"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/textId"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
@@ -51,13 +51,20 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <ImageView
+                    android:id="@+id/ImageGif"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@id/textId"
+                    android:background="@drawable/background_video_view" />
+
                 <TextView
                     android:id="@+id/text_file"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="0.9"
+                    android:layout_weight="0.8"
                     android:gravity="center"
                     android:hint="Open File"
                     android:textColor="#000000"
@@ -66,9 +73,9 @@
                 <ImageButton
                     android:id="@+id/button_Choose_File"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="0.1"
+                    android:layout_weight="0.2"
                     android:background="#00FFFFFF"
                     android:src="@drawable/ic_baseline_insert_drive_file_24" />
             </LinearLayout>
@@ -85,6 +92,7 @@
                 android:layout_height="match_parent">
 
                 <GridLayout
+                    android:id="@+id/GirdLayout"
                     android:layout_width="match_parent"
                     android:layout_height="450dp"
                     android:layout_marginTop="10dp"
@@ -166,8 +174,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:background="#FFFFFF"
                                 android:layout_marginTop="10dp"
+                                android:background="#FFFFFF"
                                 android:hint="20-200"
                                 android:inputType="number" />
                         </LinearLayout>
@@ -307,7 +315,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="0.5"
-                        android:text="Send"/>
+                        android:text="Send" />
 
                     <Button
                         android:layout_width="0dp"
@@ -315,7 +323,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="0.5"
-                        android:text="Send"/>
+                        android:text="Send" />
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>

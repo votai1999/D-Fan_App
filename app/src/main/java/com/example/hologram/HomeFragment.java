@@ -42,6 +42,7 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragment extends Fragment {
     HomeFragment context = HomeFragment.this;
     String gifUrl = "https://i.kinja-img.com/gawker-media/image/upload/s--B7tUiM5l--/gf2r69yorbdesguga10i.gif";
+    String path;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment {
                 intent.setType("*/*");
                 intent.putExtra(Intent.EXTRA_MIME_TYPES,
                         new String[]{"image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"});
-//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intent, 1);
                 getActivity().setResult(Activity.RESULT_OK);
             }
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment {
             String pad = data.getData().getPath();
             String buf_path = pad.substring(pad.indexOf(":") + 1, pad.length());
             File dir = Environment.getExternalStorageDirectory();
-            String path = dir.getAbsolutePath() + "/" + buf_path;
+            path = dir.getAbsolutePath() + "/" + buf_path;
             Glide
                     .with(context)
                     .load(Uri.fromFile(new File(path)))
@@ -92,4 +93,5 @@ public class HomeFragment extends Fragment {
             textViewNameFile.setText(name);
         }
     }
+
 }

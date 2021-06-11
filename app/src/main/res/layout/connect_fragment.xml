@@ -7,7 +7,82 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#4B2E8F"></RelativeLayout>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textConnectWifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Connect To Wifi"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editSsid"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/textConnectWifi"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/background_edit_text"
+            android:hint="Enter SSID"
+            android:maxLength="30"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <ImageButton
+            android:id="@+id/imageScanSSID"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textConnectWifi"
+            android:layout_alignRight="@+id/editSsid"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+        <EditText
+            android:id="@+id/editPass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/editSsid"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0.9"
+            android:background="@drawable/background_edit_text"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonVisibility"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/editSsid"
+            android:layout_alignRight="@+id/editPass"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_baseline_visibility_off_24" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editPass"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Connect" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_logo__2_"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"/>
+    </RelativeLayout>
 </FrameLayout>

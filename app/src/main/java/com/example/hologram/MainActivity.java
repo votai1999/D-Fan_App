@@ -3,6 +3,7 @@ package com.example.hologram;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -11,6 +12,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,11 +20,14 @@ import android.view.WindowManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.hologram.R.id.connect;
 
 public class MainActivity extends AppCompatActivity {
     final HomeFragment fragmentHome = new HomeFragment();
-    final SettingFragment fragmentSetting = new SettingFragment();
+    final AboutFragment fragmentAbout = new AboutFragment();
     final ConnectFragment fragmentConnect = new ConnectFragment();
     final FragmentManager fragmentManager = getSupportFragmentManager();
     Fragment active = fragmentHome;
@@ -44,40 +49,34 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().getAttributes().flags &= ~WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_main);
-        verifyStoragePermissions(this);
         navigationView = (ChipNavigationBar) findViewById(R.id.bottomNavigati);
         navigationView.setItemSelected(R.id.home);
-
-//        navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setOnItemSelectedListener(navListener);
         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragmentHome).commit();
         fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragmentConnect, "2")
                 .hide(fragmentConnect)
                 .commit();
-        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragmentSetting, "3")
-                .hide(fragmentSetting)
+        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragmentAbout, "3")
+                .hide(fragmentAbout)
                 .commit();
+        Log.d(String.valueOf(checkAndRequestPermissions()), "onCreate: ");
     }
-
-    /**
-     * Checks if the app has permission to write to device storage
-     * <p>
-     * If the app does not has permission then the user will be prompted to grant permissions
-     *
-     * @param activity
-     */
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
+    private  boolean checkAndRequestPermissions() {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),1);
+            return false;
+        }
+        return true;
     }
 
     private ChipNavigationBar.OnItemSelectedListener navListener = new ChipNavigationBar.OnItemSelectedListener() {
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             switch (i) {
                 case R.id.home:
                     if (active != fragmentHome) {
-                        if (active == fragmentSetting) {
+                        if (active == fragmentAbout) {
                             fragmentManager.beginTransaction()
                                     .setCustomAnimations(R.anim.in_left, R.anim.out_right)
                                     .hide(active)
@@ -101,14 +100,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     active = fragmentHome;
                     break;
-                case R.id.setting:
-                    if (active != fragmentSetting) {
+                case R.id.info:
+                    if (active != fragmentAbout) {
                         fragmentManager.beginTransaction()
                                 .setCustomAnimations(R.anim.in_right, R.anim.out_left)
                                 .hide(active)
-                                .show(fragmentSetting).commit();
+                                .show(fragmentAbout).commit();
                     }
-                    active = fragmentSetting;
+                    active = fragmentAbout;
                     break;
                 case connect:
                     if (active != fragmentConnect) {

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background">
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
@@ -18,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/background_nagative"
         app:cnb_hideOnScroll="true"
         app:cnb_menuResource="@menu/menu"
         app:cnb_orientationMode="horizontal"

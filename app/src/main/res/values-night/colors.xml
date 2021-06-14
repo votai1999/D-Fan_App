@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="textcolor">#FFFFFF</color>
+    <color name="textcolorbutton">#000000</color>
+    <color name="background">#070D1B</color>
+    <color name="buttonbackground">#0476c4</color>
+    <color name="backgrounditemmenu">#393939</color>
+    <color name="cardviewcolor">#353535</color>
 </resources>

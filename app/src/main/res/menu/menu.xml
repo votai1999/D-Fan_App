@@ -6,22 +6,22 @@
             android:id="@+id/connect"
             android:title="Connect"
             android:icon="@drawable/ic_baseline_cast_connected_24"
-            app:cnb_iconColor="#ffffff"
-            app:cnb_textColor="#ffffff"
-            app:cnb_backgroundColor = "#4E4D50"/>
+            app:cnb_iconColor="@color/buttonbackground"
+            app:cnb_textColor="@color/buttonbackground"
+            app:cnb_backgroundColor = "@color/backgrounditemmenu"/>
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Home"
-            app:cnb_iconColor="#ffffff"
-            app:cnb_textColor="#ffffff"
-            app:cnb_backgroundColor = "#4E4D50"/>
+            app:cnb_iconColor="@color/buttonbackground"
+            app:cnb_textColor="@color/buttonbackground"
+            app:cnb_backgroundColor = "@color/backgrounditemmenu"/>
         <item
             android:id="@+id/info"
             android:title="About"
             android:icon="@drawable/ic_baseline_info_24"
-            app:cnb_iconColor="#ffffff"
-            app:cnb_textColor="#ffffff"
-            app:cnb_backgroundColor = "#4E4D50"/>
+            app:cnb_iconColor="@color/buttonbackground"
+            app:cnb_textColor="@color/buttonbackground"
+            app:cnb_backgroundColor = "@color/backgrounditemmenu"/>
     </group>
 </menu>

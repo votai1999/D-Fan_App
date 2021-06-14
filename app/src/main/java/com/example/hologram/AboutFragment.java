@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -26,13 +28,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 public class AboutFragment extends Fragment {
-    Switch aSwitch;
     LinearLayout linearLayoutTheme;
     PopupMenu popupMenuTheme;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     TextView textViewTheme;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -50,17 +50,6 @@ public class AboutFragment extends Fragment {
         textViewTheme.setText(sharedPreferences.getString("TitleTheme", ""));
         int IdItem = (sharedPreferences.getInt("IdItem", 0) == 0) ? R.id.themeLight : sharedPreferences.getInt("IdItem", 0);
         boolean CheckItem = sharedPreferences.getBoolean("CheckItem", true);
-        switch (IdItem) {
-            case R.id.themeLight:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case R.id.themeDark:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case R.id.themeDefault:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
-        }
         linearLayoutTheme.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -83,14 +72,17 @@ public class AboutFragment extends Fragment {
                             case R.id.themeLight:
                                 item.setChecked(!item.isChecked());
                                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                                restartActivity();
                                 break;
                             case R.id.themeDark:
                                 item.setChecked(!item.isChecked());
                                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                                restartActivity();
                                 break;
                             case R.id.themeDefault:
                                 item.setChecked(!item.isChecked());
                                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                                restartActivity();
                                 break;
                         }
                         return false;
@@ -99,5 +91,14 @@ public class AboutFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    public void restartActivity() {
+        Intent i = getActivity().getIntent();
+        getActivity().overridePendingTransition(0, 0);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        getActivity().finish();
+        getActivity().overridePendingTransition(0, 0);
+        getActivity().startActivity(i);
     }
 }

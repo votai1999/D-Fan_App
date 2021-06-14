@@ -27,22 +27,32 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
+import java.lang.reflect.Field;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class HomeFragment extends Fragment {
     HomeFragment context = HomeFragment.this;
-    String gifUrl = "https://i.kinja-img.com/gawker-media/image/upload/s--B7tUiM5l--/gf2r69yorbdesguga10i.gif";
     String path;
+    Button imageButtonParameter;
+    TextView textViewNoFile;
+    ListView listViewFile;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -61,6 +71,12 @@ public class HomeFragment extends Fragment {
         textViewNameFile = (TextView) getActivity().findViewById(R.id.text_file);
         buttonChoose = (ImageButton) getActivity().findViewById(R.id.button_Choose_File);
         imageViewGif = (ImageView) getActivity().findViewById(R.id.ImageGif);
+        imageButtonParameter = (Button) getActivity().findViewById(R.id.button_setting_parameter);
+        listViewFile = (ListView) getActivity().findViewById(R.id.list_view);
+        textViewNoFile = (TextView) getActivity().findViewById(R.id.text_nofile);
+//        if (listViewFile == null)
+            textViewNoFile.setVisibility(View.VISIBLE);
+//        else textViewNoFile.setVisibility(View.INVISIBLE);
         buttonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +89,12 @@ public class HomeFragment extends Fragment {
                 getActivity().setResult(Activity.RESULT_OK);
             }
         });
+        imageButtonParameter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetParameter();
+            }
+        });
     }
 
     @Override
@@ -83,6 +105,15 @@ public class HomeFragment extends Fragment {
             String buf_path = pad.substring(pad.indexOf(":") + 1, pad.length());
             File dir = Environment.getExternalStorageDirectory();
             path = dir.getAbsolutePath() + "/" + buf_path;
+            //        *************************
+            if (!Python.isStarted())
+                Python.start(new AndroidPlatform(getActivity()));
+            Python python = Python.getInstance();
+            PyObject pyObject = python.getModule("Encode");
+            PyObject object = pyObject.callAttr("ProccessDataVideo",path);
+            Log.d(path, "onActivityResult: ");
+            Log.d(String.valueOf(object), "onActivityCreated: ");
+            //        *************************
             Glide
                     .with(context)
                     .load(Uri.fromFile(new File(path)))
@@ -92,6 +123,22 @@ public class HomeFragment extends Fragment {
             String name = file.getName();
             textViewNameFile.setText(name);
         }
+    }
+
+    public void BottomSheetParameter() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialogTheme);
+        View bottomSheetView = LayoutInflater.from(getActivity())
+                .inflate(R.layout.bottom_parameter,
+                        (LinearLayout) getActivity().findViewById(R.id.bottom_sheet));
+        bottomSheetView.findViewById(R.id.SendData).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("dfhdgfh", "onClick: ");
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
 
 }

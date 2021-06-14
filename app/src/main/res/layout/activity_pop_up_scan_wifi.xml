@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PopUpScanWifi"
-    app:cardCornerRadius="15dp">
+    android:backgroundTint="@color/background"
+    app:cardCornerRadius="15dp"
+>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +28,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
+                android:theme="@style/progressBar"
                 />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefreshlayout"

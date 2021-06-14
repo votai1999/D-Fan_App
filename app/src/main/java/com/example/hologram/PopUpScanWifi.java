@@ -55,7 +55,6 @@ public class PopUpScanWifi extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up_scan_wifi);
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);// Trong suot nen PopUp
-        getApplication().setTheme(R.style.Theme_AppCompat_Dialog);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;

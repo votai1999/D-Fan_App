@@ -106,8 +106,8 @@ def ProccessDataVideo(giffilename):
                 ListData.append(resized_img[i, j][1])
                 ListData.append(resized_img[i, j][2])
 
-        converted_data = np.asarray(ListData, dtype=np.uint8)
-        converted_data.astype('uint8').tofile(str(nframes) + '.bin')
+        # converted_data = np.asarray(ListData, dtype=np.uint8)
+        # converted_data.astype('uint8').tofile(str(nframes) + '.bin')
         
         if (nframes > length+1):
             break
@@ -115,6 +115,8 @@ def ProccessDataVideo(giffilename):
             frame.seek(nframes)
         except EOFError:
             break
+    print(nframes)
+    print(fps)
     return nframes, fps
 
 

@@ -77,6 +77,8 @@
             android:layout_below="@id/editPass"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/textcolorbutton"
             android:text="Connect" />
         <ImageView
             android:layout_width="match_parent"

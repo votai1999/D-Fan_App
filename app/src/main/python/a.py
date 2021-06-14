@@ -1,2 +1,2 @@
-def log():
-    return "Hello Guy"
+def log(s):
+    return s

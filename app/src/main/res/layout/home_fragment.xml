@@ -41,9 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@id/textId"
-            android:layout_marginLeft="90dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/cardviewcolor"
             app:cardCornerRadius="8dp">
 
@@ -76,93 +76,73 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/textId"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:shape="ring"
-            app:cardCornerRadius="55dp">
-
-            <ImageView
-                android:id="@+id/ImageGif"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/background_video_view"
-                android:padding="2dp" />
-        </androidx.cardview.widget.CardView>
-
         <Button
             android:id="@+id/button_setting_parameter"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:layout_below="@id/cardviewFile"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_custom"
-            android:text="Setting parameter"
+            android:text="Preview &amp; send"
             android:textColor="@color/textcolorbutton" />
 
-        <LinearLayout
-            android:id="@+id/title_list_file"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_setting_parameter"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:src="@drawable/ic_baseline_format_list_bulleted_24" />\
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.9"
-                android:text="List File"
-                android:textColor="@color/textcolor"
-                android:textSize="17dp" />
-        </LinearLayout>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/button_send"
-            android:layout_below="@id/title_list_file"
-            android:layout_margin="5dp"
-            android:backgroundTint="@color/cardviewcolor"
-            app:cardCornerRadius="20dp">
-
-            <ListView
-                android:id="@+id/list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/text_nofile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="No File" />
-        </androidx.cardview.widget.CardView>
-
-
-        <Button
-            android:id="@+id/button_send"
+            android:id="@+id/controlCard"
+            android:layout_below="@id/button_setting_parameter"
             android:layout_width="200dp"
+            app:cardElevation="30dp"
+            app:cardCornerRadius="15dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="36dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/button_custom"
-            android:text="Run"
-            android:textColor="@color/textcolorbutton" />
+            android:padding="8dp"
+            >
+            <RelativeLayout
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/controlTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="D-Fan control"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:id="@+id/control"
+                    android:layout_below="@id/controlTitle"
+                    android:orientation="horizontal"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/back"
+                        android:src="@drawable/ic_baseline_skip_previous_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/play"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_play_arrow_24"/>
+                    <ImageView
+                        android:id="@+id/next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_skip_next_24"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </FrameLayout>

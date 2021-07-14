@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="wrap_content">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -26,9 +26,9 @@
                 <GridLayout
                     android:id="@+id/GirdLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="60dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
                     android:alignmentMode="alignMargins"
                     android:columnCount="2"
                     android:columnOrderPreserved="false"
@@ -113,164 +113,99 @@
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Number Frames"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill_vertical"
-                                android:layout_marginTop="10dp"
-                                android:background="#00FFFFFF"
-                                android:hint="0-60"
-                                android:inputType="number" />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Brightness"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill_vertical"
-                                android:layout_marginTop="10dp"
-                                android:background="#00FFFFFF"
-                                android:hint="0-60"
-                                android:inputType="number" />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Motor Speed"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill_vertical"
-                                android:layout_marginTop="10dp"
-                                android:background="#00FFFFFF"
-                                android:hint="0-60"
-                                android:inputType="number" />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Channel"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill_vertical"
-                                android:layout_marginTop="10dp"
-                                android:background="#00FFFFFF"
-                                android:hint="0-60"
-                                android:inputType="number" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
                 </GridLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/previewCard"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:elevation="30dp"
+                    app:cardCornerRadius="30dp"
+                    android:layout_below="@id/GirdLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/previewTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="18dp"
+                            android:gravity="center"
+                            android:text="Media preview"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/ic_baseline_preview_24" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            app:cardCornerRadius="15dp"
+                            android:layout_below="@id/previewTitle"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="16dp">
+
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/speed"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_below="@id/previewCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/speedTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:gravity="center"
+                            android:text="Speed"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:drawableLeftCompat="@drawable/ic_baseline_speed_24" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            />
+                        <SeekBar
+                            android:layout_marginTop="8dp"
+                            android:layout_below="@id/speedTitle"
+                            android:max="100"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </SeekBar>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <Button
                     android:id="@+id/SendData"
                     android:layout_width="200dp"
+                    android:layout_below="@id/speed"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10dp"
-                    android:layout_below="@id/GirdLayout"
                     android:background="@drawable/button_custom"
                     android:textColor="@color/textcolorbutton"
                     android:text="Send Data" />

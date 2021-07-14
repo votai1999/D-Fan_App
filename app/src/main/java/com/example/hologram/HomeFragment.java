@@ -1,93 +1,89 @@
 package com.example.hologram;
 
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
-import android.media.MediaPlayer;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.theartofdev.edmodo.cropper.CropImage;
 
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+
+import java.io.DataOutputStream;
 import java.io.File;
-import java.lang.reflect.Field;
-
-import static android.app.Activity.RESULT_OK;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLConnection;
 
 
 public class HomeFragment extends Fragment {
-    HomeFragment context = HomeFragment.this;
-    String path;
     Button imageButtonParameter;
-    TextView textViewNoFile;
-    ListView listViewFile;
+    ImageButton buttonChoose;
+    ImageView play;
+    ImageView previous;
+    ImageView next;
+    TextView textViewNameFile;
+
+    public static boolean isImageFile(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(path);
+        return mimeType != null && mimeType.startsWith("image");
+    }
+
+    public static boolean isVideoFile(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(path);
+        return mimeType != null && mimeType.startsWith("video");
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_fragment, container, false);
-    }
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
 
-    ImageButton buttonChoose;
-    TextView textViewNameFile;
-    ImageView imageViewGif;
-    Intent intent;
+        textViewNameFile = view.findViewById(R.id.text_file);
+        buttonChoose = view.findViewById(R.id.button_Choose_File);
+        imageButtonParameter = view.findViewById(R.id.button_setting_parameter);
+        play = view.findViewById(R.id.play);
+        previous = view.findViewById(R.id.back);
+        next = view.findViewById(R.id.next);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        textViewNameFile = (TextView) getActivity().findViewById(R.id.text_file);
-        buttonChoose = (ImageButton) getActivity().findViewById(R.id.button_Choose_File);
-        imageViewGif = (ImageView) getActivity().findViewById(R.id.ImageGif);
-        imageButtonParameter = (Button) getActivity().findViewById(R.id.button_setting_parameter);
-        listViewFile = (ListView) getActivity().findViewById(R.id.list_view);
-        textViewNoFile = (TextView) getActivity().findViewById(R.id.text_nofile);
-//        if (listViewFile == null)
-            textViewNoFile.setVisibility(View.VISIBLE);
-//        else textViewNoFile.setVisibility(View.INVISIBLE);
-        buttonChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.setType("*/*");
-                intent.putExtra(Intent.EXTRA_MIME_TYPES,
-                        new String[]{"image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"});
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent, 1);
-                getActivity().setResult(Activity.RESULT_OK);
+        buttonChoose.setOnClickListener(v -> {
+            if (OpenCVLoader.initDebug()) {
+                CropImage.activity()
+                        .setActivityTitle("Crop")
+                        .setAspectRatio(1,1)
+                        .start(requireContext(), this);
+            }else {
+                Toast.makeText(requireActivity(), "Wait for open cv", Toast.LENGTH_LONG).show();
             }
+
         });
         imageButtonParameter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,48 +91,81 @@ public class HomeFragment extends Fragment {
                 BottomSheetParameter();
             }
         });
+        return view;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            String pad = data.getData().getPath();
-            String buf_path = pad.substring(pad.indexOf(":") + 1, pad.length());
-            File dir = Environment.getExternalStorageDirectory();
-            path = dir.getAbsolutePath() + "/" + buf_path;
-            //        *************************
-            if (!Python.isStarted())
-                Python.start(new AndroidPlatform(getActivity()));
-            Python python = Python.getInstance();
-            PyObject pyObject = python.getModule("Encode");
-            PyObject object = pyObject.callAttr("ProccessDataVideo",path);
-            Log.d(path, "onActivityResult: ");
-            Log.d(String.valueOf(object), "onActivityCreated: ");
-            //        *************************
-            Glide
-                    .with(context)
-                    .load(Uri.fromFile(new File(path)))
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageViewGif);
-            File file = new File(pad);
-            String name = file.getName();
-            textViewNameFile.setText(name);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                Uri resultUri = result.getUri();
+                File file = new File(resultUri.getPath());
+                textViewNameFile.setText(file.getName());
+                Bitmap bmp = null;
+                try {
+                    bmp = MediaStore.Images.Media.getBitmap(
+                            requireActivity().getContentResolver(),
+                            resultUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert bmp != null;
+                Mat image = new Mat(bmp.getWidth(), bmp.getHeight(), CvType.CV_8UC4);
+                Utils.bitmapToMat(bmp, image);
+                Mat resized = new Mat();
+                Size size = new Size(200,200);
+                Imgproc.resize(image,resized,size);
+
+                Bitmap previewBitmap = Bitmap.createBitmap(resized.rows(), resized.cols(),
+                        Bitmap.Config.ARGB_8888);
+                Utils.matToBitmap(resized,previewBitmap);
+                Log.e("URI", String.valueOf(resized.cols()));
+                Log.e("URI", String.valueOf(resized.rows()));
+                resized.convertTo(resized,CvType.CV_64FC3);
+                double [] array = new double[(int) resized.total()*resized.channels()];
+                resized.get(0,0,array);
+                File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "aaa.bin");
+                if (!f.exists()) {
+                    File parentFile = f.getParentFile();
+                    assert parentFile != null;
+                    if (!parentFile.exists()) {
+                        parentFile.mkdirs();
+                    }
+                    try {
+                        if(f.createNewFile()){
+                            Log.e("create",f.getPath());
+                        };
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    FileOutputStream fos = new FileOutputStream(f);
+                    for (double v : array) {
+                        fos.write((int)v);
+                    }
+                    fos.flush();
+                    fos.close();
+                    Log.e("path",f.getPath());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
         }
     }
 
+
+
     public void BottomSheetParameter() {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialogTheme);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getActivity())
                 .inflate(R.layout.bottom_parameter,
-                        (LinearLayout) getActivity().findViewById(R.id.bottom_sheet));
-        bottomSheetView.findViewById(R.id.SendData).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("dfhdgfh", "onClick: ");
-                bottomSheetDialog.dismiss();
-            }
-        });
+                         requireActivity().findViewById(R.id.bottom_sheet));
+        bottomSheetView.findViewById(R.id.SendData).setOnClickListener(v -> bottomSheetDialog.dismiss());
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }

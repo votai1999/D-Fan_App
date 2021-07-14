@@ -7,35 +7,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp">
+        android:paddingStart="20dp">
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="HOLOGRAM"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/textcolor"
             android:layout_marginTop="50dp" />
-        <LinearLayout
-            android:id="@+id/linearlayoutTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/textTitle"
-            android:layout_marginTop="5dp">
-            <TextView
-                android:id="@+id/textDisplay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Display"
-                android:layout_marginTop="20dp"
-                android:textSize="19dp"/>
-            <TextView
-                android:id="@+id/textTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"/>
-        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
